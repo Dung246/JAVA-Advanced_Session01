@@ -1,33 +1,29 @@
-package Session01.bt;
+package session02.bt;
 
-class InvalidAgeException extends Exception {
-    public InvalidAgeException(String msg) {
-        super(msg);
+interface UserActions{
+    default void logActivity(String activity){
+        System.out.println("User log: " + activity);
     }
 }
 
-class User {
-    private int age;
-
-    public void setAge(int age) throws InvalidAgeException {
-        if (age < 0) {
-            throw new InvalidAgeException("Tuổi không thể âm!");
-        }
-        this.age = age;
-    }
-
-    public int getAge() {
-        return age;
+interface AdminActions{
+    default void logActivity(String activity){
+        System.out.println("Admin log: " + activity);
     }
 }
 
-public class b5 {
-    public static void main(String[] args) {
-        User user = new User();
-        try {
-            user.setAge(-5);
-        } catch (InvalidAgeException e) {
-            System.out.println(e);
-        }
+class SuperAdmin implements UserActions, AdminActions{
+
+    public void logActivity(String activity){
+        UserActions.super.logActivity(activity);
+        AdminActions.super.logActivity(activity);
+    }
+
+}
+
+public class b5{
+    public static void main(String[] args){
+        SuperAdmin superadmin = new SuperAdmin();
+        superadmin.logActivity("Login system");
     }
 }

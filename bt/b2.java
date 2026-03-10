@@ -1,24 +1,14 @@
-package Session01.bt;
-import java.util.Scanner;
+package session02.bt;
 
-public class b2 {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+interface PasswordValidator{
+    boolean isValid(String password);
+}
 
-        System.out.print("Nhập tổng số người dùng: ");
-        int tongNguoi = scanner.nextInt();
+public class b2{
+    public static void main(String[] args){
+        PasswordValidator validator = password -> password.length() >= 8;
 
-        System.out.print("Nhập số nhóm muốn chia: ");
-        int soNhom = scanner.nextInt();
-
-        try {
-            int moiNhom = tongNguoi / soNhom;
-            System.out.println("Mỗi nhóm có: " + moiNhom + " người");
-        } catch (ArithmeticException e) {
-            System.out.println("Không thể chia cho 0!");
-        }
-
-        System.out.println("Chương trình vẫn tiếp tục chạy...");
-        scanner.close();
+        System.out.println(validator.isValid("12345678"));
+        System.out.println(validator.isValid("1234"));
     }
 }
